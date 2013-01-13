@@ -1,0 +1,10 @@
+#summary One-sentence summary of this page.
+
+= Introduction =
+
+Prevent Multiple Logins
+
+
+= Details =
+
+A WordPress Plugin to prevent multiple logins to the same user account. Multiple login attempts will be logged and informed to the relevant users according to the plugin settings.
