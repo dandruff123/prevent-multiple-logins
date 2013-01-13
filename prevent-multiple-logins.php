@@ -26,15 +26,20 @@ License: GPL2 or later.
     MA  02110-1301  USA
 */
 
-! defined( 'ABSPATH' ) AND exit;
+// Don't allow this file to be called directly.
+if( !defined( 'ABSPATH' ) ){
+    header('HTTP/1.0 403 Forbidden');
+    die('No Direct Access Allowed!');
+}
 
 if ( ! class_exists( 'UWPML_Prevent_Multiple_Logins' ) ){
     
 /**
  * Prevent Multiple Logins
  * 
- * This class is initialized and plugin setup method is attached to the
- * 'plugins_loaded' action hook.
+ * This class is instantiated and 
+ * plugin_setup() method is attached to
+ * the 'plugins_loaded' action hook.
  * 
  * @package uwpml 
  * @since 1.0
@@ -94,7 +99,7 @@ class UWPML_Prevent_Multiple_Logins
             $this->load_language( 'uwpml' );
 
             include 'inc/class-uwpml-manage-options.php';
-            $this->manage_options = new UWPML_Manage_Options();
+            //$this->manage_options = new UWPML_Manage_Options();
 
             add_action('after_head', array( $this, 'after_head' ) );
 	}
