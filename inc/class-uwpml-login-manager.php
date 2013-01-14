@@ -9,6 +9,8 @@
  * 
  * @package uwpml
  * @since 1.0.1
+ * 
+ * @author sachiran <sachiran@php-sri-lanka.com>
  */
 class UWPML_Login_Manager{
     
