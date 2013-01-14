@@ -99,7 +99,7 @@ class UWPML_Prevent_Multiple_Logins
             $this->load_language( 'uwpml' );
 
             include 'inc/class-uwpml-manage-options.php';
-            //$this->manage_options = new UWPML_Manage_Options();
+            $this->manage_options = new UWPML_Manage_Options();
 
             add_action('after_head', array( $this, 'after_head' ) );
 	}
@@ -110,7 +110,8 @@ class UWPML_Prevent_Multiple_Logins
          * @return void
          */
         public function after_head(){
-            _e( 'Hello', 'uwpml');
+            echo $this->plugin_basename . '/languages';
+            echo __( 'Hello', 'uwpml');
         }
 
         /**
