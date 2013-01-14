@@ -18,7 +18,7 @@ class UWPML_Login_Manager{
     private $error_heading;
     
     private $error_message;
-            
+    
     public function __construct() {  
         
         $this->error_heading = __('Already Logged In.' , 'uwpml');
@@ -36,14 +36,9 @@ class UWPML_Login_Manager{
     }
     
     public function update_user_meta_login(){
-        if(is_user_logged_in()){
-            
-        $this->user_meta = array(
-            'logged_in' => true,
-            'last_seen' => time()
-        );       
-        
-        update_user_meta(get_current_user_id(), 'uwpml_user_meta', $this->user_meta);
+        if(is_user_logged_in()){            
+            $cookie = 'wp-settings-time-' . get_current_user_id();    
+
         }
     }
     
@@ -62,13 +57,9 @@ class UWPML_Login_Manager{
     public function check_login($user, $username, $password){
         
         if ( is_a($user, 'WP_User')) {
-            $uwpml_user_meta = get_user_meta(
-                    $user->ID, 
-                    'uwpml_user_meta', 
-                    true
-                    );
+            $uwpml_user_meta = get_transient( $user->ID );
             
-            if($uwpml_user_meta['logged_in']){      
+            if($uwpml_user_meta){      
                 $uwpml_options = get_option('uwpml_options');
                 $last_seen = $uwpml_user_meta['last_seen'];
                 $expiration = $uwpml_options['auth']['time'];
@@ -92,6 +83,14 @@ class UWPML_Login_Manager{
                     return $user;
                 }
             } else {
+                $uwpml_options = get_option('uwpml_options');
+                $expiration = $uwpml_options['auth']['time_remember'];       
+                $this->user_meta = array(
+                    'logged_in' => true,
+                    'wp-settings-time-uid' => $_COOKIE[$cookie],
+                    'last_seen' => time()
+                );       
+                set_transient(get_current_user_id(), $this->user_meta, $expiration);                
                 return $user;
             }
         

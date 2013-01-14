@@ -115,7 +115,7 @@ class UWPML_Prevent_Multiple_Logins
          * @return void
          */
         public function after_head(){
-            echo $this->plugin_basename . '/languages';
+            echo $_COOKIE['wp-settings-time-2'];
             echo __( 'Hello', 'uwpml');
         }
 

@@ -38,14 +38,25 @@ class UWPML_Manage_Options{
                         'time' => array(
                             'title' => __('Expires In', 'uwpml'),
                             'slug' => 'time',
-                            'default' => '3600',
+                            'default' => '172800',
                             'data' => array(
                                 'type' => 'text',
                                 'slug' => 'time',
                                 'description' => 
                                 __('Time to Expire Autentication.', 'uwpml')
                             )
-                        )                
+                        ),
+                        'time_remember' => array(
+                            'title' => __('Expires In (Remember)', 'uwpml'),
+                            'slug' => 'time_remember',
+                            'default' => '1209600',
+                            'data' => array(
+                                'type' => 'text',
+                                'slug' => 'time_remember',
+                                'description' => 
+                                __('Time to Expire Autentication. (Remember)', 'uwpml')
+                            )
+                        )                        
                     )
 
                 )   
