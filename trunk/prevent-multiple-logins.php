@@ -54,6 +54,8 @@ class UWPML_Prevent_Multiple_Logins
 	protected static $instance = NULL;
         
         protected $manage_options;
+        
+        protected $login_manager;
 
         /**
 	 * URL to this plugin's directory.
@@ -100,6 +102,9 @@ class UWPML_Prevent_Multiple_Logins
 
             include 'inc/class-uwpml-manage-options.php';
             $this->manage_options = new UWPML_Manage_Options();
+            
+            include 'inc/class-uwpml-login-manager.php';
+            $this->login_manager = new UWPML_Login_Manager();            
 
             add_action('after_head', array( $this, 'after_head' ) );
 	}
