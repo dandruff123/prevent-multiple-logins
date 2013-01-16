@@ -1,4 +1,5 @@
 #summary source of the prevent-multiple-logins
+#sidebar sidebar
 
 = SVN =
 

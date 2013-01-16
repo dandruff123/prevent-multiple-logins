@@ -6,4 +6,6 @@
 
 [http://code.google.com/p/prevent-multiple-logins/wiki/submitpatch Submit a Patch]
 
+[source Plugin Source]
+
 http://prevent-multiple-logins.googlecode.com/svn/assets/logo.png
