@@ -1,4 +1,5 @@
 #summary Prevents login to a user account multiple times.
+#labels Featured
 
 = Prevent Multiple Logins =
 
