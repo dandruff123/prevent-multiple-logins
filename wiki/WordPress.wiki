@@ -1,4 +1,4 @@
-#WordPress is web software you can use to create a beautiful website or blog
+#summary WordPress is web software you can use to create a beautiful website or blog
 
 = Introduction =
 
