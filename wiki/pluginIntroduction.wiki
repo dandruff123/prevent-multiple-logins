@@ -1,0 +1,22 @@
+#summary Prevents login to a user account multiple times.
+
+= Prevent Multiple Logins =
+
+Prevents login to a user account multiple times.
+
+This project is a plugin for WordPress.
+
+ * Read more about [http://wordpress.org/ WordPress] ^1^
+ * Read more about [http://codex.wordpress.org/Plugins WordPress plugins] ^2^
+
+^1^ _WordPress is web software you can use to create a beautiful website or blog_
+
+^2^ _Plugins are tools to extend the functionality of WordPress_
+
+= Default WordPress Login =
+
+Login credentials are validated and auth cookie is generated upon login. Each visit to the site by a logged in user is identified by checking the auth cookie formed upon login.
+
+HTTP is stateless. Session is not generated connecting WordPress and logged in user. WordPress has no idea of who is currently logged in by default.
+
+If another person enters the same credentials as a logged in user, the latter one will also given a auth cookie. This default WordPress behavior makes it possible to have two logged in users with same login credentials to the same user account.
