@@ -1,3 +1,5 @@
-#prevent multiple logins sidebar
+#summary prevent multiple logins sidebar
 
 [http://code.google.com/p/prevent-multiple-logins Project Home]
+
+http://3.bp.blogspot.com/-Lcay1YH_jZQ/UPYnX88DAvI/AAAAAAAABKk/Lat3QECCVeg/s400/googlecode.jpg
