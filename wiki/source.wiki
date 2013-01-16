@@ -1,0 +1,13 @@
+#summary source of the prevent-multiple-logins
+
+= SVN =
+
+browse [http://code.google.com/p/prevent-multiple-logins/source/browse/#svn%2Ftrunk the source code].
+
+
+= Checkout =
+
+
+# Non-members may check out a read-only working copy anonymously over HTTP.
+
+`svn checkout http://prevent-multiple-logins.googlecode.com/svn/trunk/ prevent-multiple-logins-read-only`
