@@ -1,0 +1,3 @@
+#prevent multiple logins sidebar
+
+[http://code.google.com/p/prevent-multiple-logins Project Home]
