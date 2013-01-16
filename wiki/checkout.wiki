@@ -1,0 +1,3 @@
+== Checkout Instruction =
+
+Please follow the following instructions to checkout the source.
