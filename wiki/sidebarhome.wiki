@@ -2,6 +2,6 @@
 
 Prevent Multiple Logins WordPress Plugin Project
 
-http://prevent-multiple-logins.googlecode.com/svn/assets/wordpress-logo.png
+http://prevent-multiple-logins.googlecode.com/svn/assets/wordpress.png
 
 [http://wordpressfoundation.org/trademark-policy/ WordPress trademark usage policy]
