@@ -3,6 +3,8 @@
 
 = Prevent Multiple Logins =
 
+http://prevent-multiple-logins.googlecode.com/svn/assets/banner.png
+
 Prevents login to a user account multiple times.
 
 This project is a plugin for WordPress.

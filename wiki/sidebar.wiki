@@ -2,4 +2,8 @@
 
 [http://code.google.com/p/prevent-multiple-logins Project Home]
 
-http://3.bp.blogspot.com/-Lcay1YH_jZQ/UPYnX88DAvI/AAAAAAAABKk/Lat3QECCVeg/s400/googlecode.jpg
+[http://code.google.com/p/prevent-multiple-logins/wiki/checkout Checkout]
+
+[http://code.google.com/p/prevent-multiple-logins/wiki/submitpatch Submit a Patch]
+
+http://prevent-multiple-logins.googlecode.com/svn/assets/logo.png
