@@ -1,3 +1,4 @@
+#sidebar sidebar
 You can submit a patch for this project.
 
 = SVN Checkout =
