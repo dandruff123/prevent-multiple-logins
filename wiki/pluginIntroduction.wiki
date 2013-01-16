@@ -1,5 +1,6 @@
 #summary Prevents login to a user account multiple times.
 #labels Featured
+#sidebar sidebar
 
 = Prevent Multiple Logins =
 
