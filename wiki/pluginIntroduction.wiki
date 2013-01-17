@@ -1,4 +1,3 @@
-#summary Prevents login to a user account multiple times.
 #sidebar sidebarhome
 
 = Prevent Multiple Logins =

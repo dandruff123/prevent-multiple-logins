@@ -1,4 +1,5 @@
-= Basic PML Plugin =
+#sidebar sidebar
+= 1. Basic PML Plugin =
 == PML Plugin / PML Framework==
 
  * Prevents multiple logins.
@@ -6,3 +7,12 @@
  * Configure auth cookie expiration period
    # with remember option
    # without remember option
+ * Admin email notification on multiple login attempts.
+ * User email notification on multiple login attempts.
+
+= 2. PML Extension =
+== EPML / Extended PML / PML Demo ==
+
+ * Basic plugin needs to be installed before the extension.
+
+ * EPML can be used to demonstrate the rich api exposed by PML plugin for developers.
