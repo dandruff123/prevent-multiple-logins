@@ -1,0 +1,7 @@
+#sidebar sidebar
+= Testers Needed =
+
+You are invited to test the beta plugin.
+
+[checkout checkout] / 
+[submitpatch patch]

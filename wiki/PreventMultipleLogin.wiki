@@ -1,0 +1,8 @@
+= Basic PML Plugin =
+== PML Plugin / PML Framework==
+
+ * Prevents multiple logins.
+ * Displays an error message on multiple login attempts(optional).
+ * Configure auth cookie expiration period
+   # with remember option
+   # without remember option
