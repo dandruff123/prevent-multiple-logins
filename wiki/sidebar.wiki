@@ -2,6 +2,8 @@
 
 [http://code.google.com/p/prevent-multiple-logins Project Home]
 
+[PreventMultipleLogins Two Plugins]
+
 [http://code.google.com/p/prevent-multiple-logins/wiki/checkout Checkout]
 
 [http://code.google.com/p/prevent-multiple-logins/wiki/submitpatch Submit a Patch]

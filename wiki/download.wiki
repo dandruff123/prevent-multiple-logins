@@ -1,7 +1,7 @@
 #sidebar sidebar
 = Download PML =
 
-Prevent Multiple Login is still under development.
+Prevent Multiple Logins is still under development.
 
 The download link will appear in this page after development.
 
