@@ -1,0 +1,52 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Prevent Multiple Logins\n"
+"POT-Creation-Date: 2013-01-14 10:24+0530\n"
+"PO-Revision-Date: 2013-01-14 10:48+0530\n"
+"Last-Translator: Upeksha <upekshawisidagama@gmail.com>\n"
+"Language-Team: Upeksha Wisidagama <upeksha@php-sri-lanka.com>\n"
+"Language: si_LK\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 1.5.4\n"
+"X-Poedit-KeywordsList: _;gettext;gettext_noop;__;_e\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-SearchPath-0: prevent-multiple-logins\n"
+"X-Poedit-SearchPath-1: prevent-multiple-logins/inc\n"
+
+#: prevent-multiple-logins/prevent-multiple-logins.php:113
+msgid "Hello"
+msgstr "ආයුබෝවන්"
+
+#: prevent-multiple-logins/inc/class-uw-page.php:99
+msgid "Save Settings"
+msgstr "ස්ථිරයි"
+
+#: prevent-multiple-logins/inc/class-uw-page.php:101
+msgid "Reset Defaults"
+msgstr "මුල් අවස්ථාව"
+
+#: prevent-multiple-logins/inc/class-uwpml-manage-options.php:25
+msgid "Prevent Multiple Logins"
+msgstr "බහු ලොගින වලක්වන්න"
+
+#: prevent-multiple-logins/inc/class-uwpml-manage-options.php:26
+msgid "PML"
+msgstr "බ ලො ව"
+
+#: prevent-multiple-logins/inc/class-uwpml-manage-options.php:34
+msgid "User Authentication Period"
+msgstr "හැඳුනුම වලංගු කාලය"
+
+#: prevent-multiple-logins/inc/class-uwpml-manage-options.php:36
+msgid "Time used in auth cookie"
+msgstr "වලංගු කූකි කාලය"
+
+#: prevent-multiple-logins/inc/class-uwpml-manage-options.php:39
+msgid "Expires In"
+msgstr "අවලංගු වේ"
+
+#: prevent-multiple-logins/inc/class-uwpml-manage-options.php:46
+msgid "Time to Expire Autentication."
+msgstr "කූකි අවලංගු වන කාලය"
