@@ -5,7 +5,9 @@ _____
 
 2. [wpgetcurrentuser UWPML Cookies and Transients]
 
-3. [PreventMultipleLogins Two Plugins]
+3. [WordPressLogin WordPress Login]
+
+4. [PreventMultipleLogins Two Plugins]
 _____
 
 [checkout Checkout]
