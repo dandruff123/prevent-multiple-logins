@@ -45,49 +45,31 @@ if ( ! class_exists( 'UWPML_Prevent_Multiple_Logins' ) ){
  * @since 1.0
  */    
 class UWPML_Prevent_Multiple_Logins
-{
-	/**
-	 * Plugin instance.
-	 *
-	 * @var UWPML_Prevent_Multiple_Logins Plugin Instance.
-	 */
-	protected static $instance = NULL;
-        
-        protected $manage_options;
-        
-        protected $login_manager;
-
+{        
         /**
-	 * URL to this plugin's directory.
-	 *
-	 * @var string
-	 */
-	public $plugin_url = '';
-
-	/**
-	 * Path to this plugin's directory.
-	 *
-	 * @type string
-	 */
-	public $plugin_path = '';
+         * Login Manager
+         * 
+         * Implements the core PML functinality
+         * 
+         * @var type UWPML_Login_Manager
+         */
+        protected $login_manager;
         
-	/**
-	 * Basename this plugin's directory.
-	 *
-	 * @type string
+        /**
+         * Login Manager Helper
+         *
+         * @var type UWPML_Helper
+         */
+        protected $helper;
+        
+        /**
+	 * Constructor. 
+         * 
+         * @return void 
 	 */
-	public $plugin_basename = '';        
-
-	/**
-	 * Access this plugin’s working instance
-	 *
-	 * @return  object of this class
-	 */
-	public static function get_instance(){
-		NULL === self::$instance and self::$instance = new self;
-
-		return self::$instance;
-	}
+	public function __construct() {            
+            $this->plugin_setup();
+        }
 
 	/**
 	 * Plugin Setup.
@@ -95,39 +77,29 @@ class UWPML_Prevent_Multiple_Logins
 	 * @return  void
 	 */
 	public function plugin_setup(){
-            $this->plugin_url      = plugin_dir_url( __FILE__ );
-            $this->plugin_path     = plugin_dir_path( __FILE__ );
-            $this->plugin_basename = dirname( plugin_basename( __FILE__ ) );
-            $this->load_language( 'uwpml' );
-
-            include 'inc/class-uwpml-manage-options.php';
-            $this->manage_options = new UWPML_Manage_Options();
             
+            $this->load_language( 'uwpml' );
+            
+            register_activation_hook( 
+                    __FILE__, 
+                    array( $this, 'uwpml_activation' ) 
+            );
+            
+            /**
+             * Core PML functionality is implemented inside 
+             * UWPML_Login_Manager class.
+             */
             include 'inc/class-uwpml-login-manager.php';
-            $this->login_manager = new UWPML_Login_Manager();            
-
-            add_action('after_head', array( $this, 'after_head' ) );
+            $this->login_manager = new UWPML_Login_Manager();    
+            
+            /**
+             * Essential helper functions for UWPML_Login_Manager
+             * Error message formatting, sending notification emails, etc.
+             */
+            include 'inc/class-uwpml-helper.php';
+            $this->helper = new UWPML_Helper();            
+         
 	}
-        
-        /**
-         * Outputs contents with 'after_head' action hook.
-         * 
-         * @return void
-         */
-        public function after_head(){
-            echo $_COOKIE['wp-settings-time-2'];
-            echo __( 'Hello', 'uwpml');
-        }
-
-        /**
-	 * Constructor. Intentionally left empty and public.
-	 *
-         * empty-constructor-approach
-         * https://github.com/toscho
-         * 
-         * @return void 
-	 */
-	public function __construct() {}
 
 	/**
 	 * Loads translation file.
@@ -139,18 +111,29 @@ class UWPML_Prevent_Multiple_Logins
 		load_plugin_textdomain(
 			$domain,
 			null,
-			$this->plugin_basename . '/languages'
+			dirname( plugin_basename( __FILE__ ) ) . '/languages'
 		);
 	}
-}
+        
+        /**
+         * UWPML Activation Function
+         */
+        public function uwpml_activation(){
+            
+            /**
+             * Adds 'uwpml_options' option
+             * This option will be deleted in 
+             * `uninstall.php`
+             */
+            add_option('uwpml_options');
+        }
+    }
 }
 
 /**
- * Initialize plugin class and attach 'plugin_setup' method
- * to 'plugins_loaded' action hook.
+ * UWPML Plugin Object.
+ * 
+ * This is a global variable.
  */
-add_action(
-    'plugins_loaded',
-    array ( UWPML_Prevent_Multiple_Logins::get_instance(), 'plugin_setup' )
-);
+$uwpml = new UWPML_Prevent_Multiple_Logins();
 ?>
