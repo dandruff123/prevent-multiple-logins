@@ -1,0 +1,95 @@
+#sidebar sidebar
+= A visit to your site =
+
+When you browse pages of your site a request is sent to the server. How it is processed?
+
+== index.php ==
+
+The request reaches index.php. Front to the WordPress application. 
+
+This file doesn't do anything, but loads `wp-blog-header.php`
+
+[http://core.trac.wordpress.org/browser/tags/3.5/index.php index.php]
+
+== wp-blog-header.php == 
+
+Three things happens here.
+
+# wp-load.php sets the `ABSPATH` constant. 
+ * `wp-config.php` file loads with all configuration details. DB,Language,Debugging configs,etc.
+ * `wp-settings.php` loads. At the end of `wp-settings.php` WP, all plugins, and the theme are fully loaded and 
+instantiated.
+# `wp()` sets up the WordPress query. This function live inside `functions.php`.
+# `template-loader.php` Loads the correct template based on the visitor's url.
+
+[http://core.trac.wordpress.org/browser/tags/3.5/wp-blog-header.php wp-blog-header.php]
+
+== wp-settings.php ==
+
+Used to set up and fix common variables and include the WordPress procedural and class library. Six Major WordPress 
+actions are fired in this file.
+
+ * muplugins_loaded [http://core.trac.wordpress.org/browser/tags/3.5/wp-settings.php#L171 Line 171]
+ * plugins_loaded [http://core.trac.wordpress.org/browser/tags/3.5/wp-settings.php#L209 Line 209]
+ * sanitize_comment_cookies [http://core.trac.wordpress.org/browser/tags/3.5/wp-settings.php#L217 Line 217]
+ * setup_theme [http://core.trac.wordpress.org/browser/tags/3.5/wp-settings.php#L262 Line 262]
+ * after_setup_theme [http://core.trac.wordpress.org/browser/tags/3.5/wp-settings.php#L294 Line 294]
+ * init [http://core.trac.wordpress.org/browser/tags/3.5/wp-settings.php#L306 Line 306]
+ * wp_loaded [http://core.trac.wordpress.org/browser/tags/3.5/wp-settings.php#L327 Last Line]
+
+== Who is the current user? ==
+
+This is an important question for `Prevent Multiple Logins` Plugin. For each visit plugin needs to know who is the 
+current user. WordPress starts to find the answer to *Who is the current user?* in the `wp-settings.php` file.
+
+{{{
+// Set up current user.
+$wp->init();
+}}}
+See [http://core.trac.wordpress.org/browser/tags/3.5/wp-settings.php#L297 Line 297]
+
+$wp is an instance of WP Class. [http://core.trac.wordpress.org/browser/tags/3.5/wp-includes/class-wp.php class-wp.php]
+
+The following is the `init()` method of `WP` class.
+
+{{{
+/**
+ * Set up the current user.
+ *
+ * @since 2.0.0
+ */
+function init() {
+        wp_get_current_user();
+}
+}}}
+See [http://core.trac.wordpress.org/browser/tags/3.5/wp-includes/class-wp.php#L455 function init()]
+
+`wp_get_current_user()` is a pluggable ^1^ function. It lives in [http://core.trac.wordpress.org/browser/tags/3.5/wp-
+includes/pluggable.php pluggable.php]. The following is the `wp_get_current_user()`
+
+{{{
+if ( !function_exists('wp_get_current_user') ) :
+/**
+ * Retrieve the current user object.
+ *
+ * @since 2.0.3
+ *
+ * @return WP_User Current user WP_User object
+ */
+function wp_get_current_user() {
+	global $current_user;
+
+	get_currentuserinfo();
+
+	return $current_user;
+}
+endif; 
+}}}
+See [http://core.trac.wordpress.org/browser/tags/3.5/wp-includes/pluggable.php#L51 wp_get_current_user()]
+
+= Notes =
+
+^1^ These functions can be replaced via plugins. If plugins do not redefine these functions, then these will be used 
+instead.
+
+At the time of this writing the highest tag is 3.5. Links are pointing to Trac tag 3.5.
