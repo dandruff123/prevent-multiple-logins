@@ -3,11 +3,11 @@
 [pluginDetails Introduction]
 _____
 
-[WordPressAuthentication 1. A Visit to Your Site]
+ # [WordPressAuthentication A Visit to Your Site]
 
-[wpgetcurrentuser 2. UWPML Cookies and Transients]
+ # [wpgetcurrentuser UWPML Cookies and Transients]
 
-[PreventMultipleLogins 3. Two Plugins]
+ # [PreventMultipleLogins Two Plugins]
 _____
 
 [checkout Checkout]

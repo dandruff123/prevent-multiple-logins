@@ -1,7 +1,7 @@
 #sidebar sidebar
 = wp_get_current_user() =
 
-[WordPressAuthentication A visit to your site] is the previous page.
+Previous Page: [WordPressAuthentication A visit to your site]
 {{{
 /**
  * Retrieve the current user object.
@@ -41,13 +41,17 @@ See [http://core.trac.wordpress.org/browser/tags/3.5/wp-includes/pluggable.php#L
 
 Who is the current user? This function will answer the question based on the auth coockie.
 
-If the auth cookie is valid `auth_cookie_valid` action is done
+If the auth cookie is valid `auth_cookie_valid` action is done.
+
 `do_action('auth_cookie_valid', $cookie_elements, $user)`
+
 See the [http://core.trac.wordpress.org/browser/tags/3.5/wp-includes/pluggable.php#L559 action hook]
-*You are given $cookie_elements, $user*
+
+You are given *$cookie_elements* and *$user*
 
 'Prevent Multiple Logins' plugin hook into this action. `uwpml_auth_cookie_valid()` is hooked into `auth_cookie_valid` action.
-add_action('auth_cookie_valid', 'uwpml_auth_cookie_valid');
+
+`add_action('auth_cookie_valid', 'uwpml_auth_cookie_valid');`
 
 = uwpml_auth_cookie_valid() =
 
