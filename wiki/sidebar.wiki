@@ -4,6 +4,8 @@
 
 [PreventMultipleLogins Two Plugins]
 
+[WordPressAuthentication A visit to your site]
+
 [http://code.google.com/p/prevent-multiple-logins/wiki/checkout Checkout]
 
 [http://code.google.com/p/prevent-multiple-logins/wiki/submitpatch Submit a Patch]

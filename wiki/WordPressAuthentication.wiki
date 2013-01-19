@@ -1,7 +1,9 @@
 #sidebar sidebar
+#summary WordPress uses cookies to authenticate you.
+
 = A visit to your site =
 
-When you browse pages of your site a request is sent to the server. How it is processed?
+When you browse pages of your site requests are sent to the server. The following describes what happens inside WordPress.
 
 == index.php ==
 
@@ -16,8 +18,8 @@ This file doesn't do anything, but loads `wp-blog-header.php`
 Three things happen here.
 
  # wp-load.php sets the `ABSPATH` constant. 
- * `wp-config.php` file loads with all configuration details. DB,Language,Debugging configs,etc.
- * `wp-settings.php` loads. At the end of `wp-settings.php` WP, all plugins, and the theme are fully loaded and instantiated.
+  * `wp-config.php` file loads with all configuration details. DB,Language,Debugging configs,etc.
+  * `wp-settings.php` loads. At the end of `wp-settings.php` WP, all plugins, and the theme are fully loaded and instantiated.
  # `wp()` sets up the WordPress query. This function live inside `functions.php`.
  # `template-loader.php` Loads the correct template based on the visitor's url.
 
@@ -25,7 +27,7 @@ Three things happen here.
 
 == wp-settings.php ==
 
-Used to set up and fix common variables and include the WordPress procedural and class library. Six Major WordPress 
+Used to set up and fix common variables and include the WordPress procedural and class library. Seven Major WordPress 
 actions are fired in this file.
 
  * muplugins_loaded [http://core.trac.wordpress.org/browser/tags/3.5/wp-settings.php#L171 Line 171]
@@ -86,6 +88,8 @@ function wp_get_current_user() {
 endif; 
 }}}
 See [http://core.trac.wordpress.org/browser/tags/3.5/wp-includes/pluggable.php#L51 wp_get_current_user()]
+
+http://prevent-multiple-logins.googlecode.com/svn/assets/wiki/wpauth-1.png
 
 = Notes =
 
