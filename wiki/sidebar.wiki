@@ -8,6 +8,8 @@ _____
 3. [WordPressLogin WordPress Login]
 
 4. [PreventMultipleLogins Two Plugins]
+
+5. [PMLscreenshots Screenshots]
 _____
 
 [checkout Checkout]

@@ -26,6 +26,8 @@ If another person enters the same credentials as a logged in user, the latter on
 
 Can a WordPress plugin alter the default WordPress login? Yes, a plugin can hook into various actions and filters available during the login process and prevent multiple logins. This plugin will display a error message in the login form with error details upon attempting to login with the same credentials that of an already logged in user.
 
-= More Details =
+= Screenshot =
 
-coming soon...
+The following is a screenshot from PML 1.6.
+
+http://prevent-multiple-logins.googlecode.com/svn/assets/wiki/wpauth-4.png
