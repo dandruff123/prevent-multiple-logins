@@ -13,14 +13,13 @@ This file doesn't do anything, but loads `wp-blog-header.php`
 
 == wp-blog-header.php == 
 
-Three things happens here.
+Three things happen here.
 
-# wp-load.php sets the `ABSPATH` constant. 
+ # wp-load.php sets the `ABSPATH` constant. 
  * `wp-config.php` file loads with all configuration details. DB,Language,Debugging configs,etc.
- * `wp-settings.php` loads. At the end of `wp-settings.php` WP, all plugins, and the theme are fully loaded and 
-instantiated.
-# `wp()` sets up the WordPress query. This function live inside `functions.php`.
-# `template-loader.php` Loads the correct template based on the visitor's url.
+ * `wp-settings.php` loads. At the end of `wp-settings.php` WP, all plugins, and the theme are fully loaded and instantiated.
+ # `wp()` sets up the WordPress query. This function live inside `functions.php`.
+ # `template-loader.php` Loads the correct template based on the visitor's url.
 
 [http://core.trac.wordpress.org/browser/tags/3.5/wp-blog-header.php wp-blog-header.php]
 
@@ -41,7 +40,7 @@ actions are fired in this file.
 
 This is an important question for `Prevent Multiple Logins` Plugin. For each visit plugin needs to know who is the 
 current user. WordPress starts to find the answer to *Who is the current user?* in the `wp-settings.php` file.
-
+=== Step 1 ===
 {{{
 // Set up current user.
 $wp->init();
@@ -50,8 +49,9 @@ See [http://core.trac.wordpress.org/browser/tags/3.5/wp-settings.php#L297 Line 2
 
 $wp is an instance of WP Class. [http://core.trac.wordpress.org/browser/tags/3.5/wp-includes/class-wp.php class-wp.php]
 
-The following is the `init()` method of `WP` class.
+=== Step 2 ===
 
+The following is the `init()` method of `WP` class.
 {{{
 /**
  * Set up the current user.
@@ -64,9 +64,9 @@ function init() {
 }}}
 See [http://core.trac.wordpress.org/browser/tags/3.5/wp-includes/class-wp.php#L455 function init()]
 
-`wp_get_current_user()` is a pluggable ^1^ function. It lives in [http://core.trac.wordpress.org/browser/tags/3.5/wp-
-includes/pluggable.php pluggable.php]. The following is the `wp_get_current_user()`
 
+=== Step 3 ===
+`wp_get_current_user()` is a pluggable ^1^ function. It lives in [http://core.trac.wordpress.org/browser/tags/3.5/wp-includes/pluggable.php pluggable.php]. The following is the `wp_get_current_user()`
 {{{
 if ( !function_exists('wp_get_current_user') ) :
 /**
