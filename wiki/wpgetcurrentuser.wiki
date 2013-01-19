@@ -1,3 +1,4 @@
+#sidebar sidebar
 = wp_get_current_user() =
 
 [WordPressAuthentication A visit to your site] is the previous page.

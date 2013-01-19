@@ -5,7 +5,7 @@ _____
 
 [WordPressAuthentication 1. A Visit to Your Site]
 
-[wpgetcurrentuser.wiki 2. UWPML Cookies and Transients]
+[wpgetcurrentuser 2. UWPML Cookies and Transients]
 
 [PreventMultipleLogins 3. Two Plugins]
 _____
