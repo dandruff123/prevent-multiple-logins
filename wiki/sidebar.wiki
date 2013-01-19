@@ -1,15 +1,21 @@
 #summary prevent multiple logins sidebar
 
-[http://code.google.com/p/prevent-multiple-logins Project Home]
+[pluginDetails Introduction]
+_____
 
-[PreventMultipleLogins Two Plugins]
+[WordPressAuthentication 1. A Visit to Your Site]
 
-[WordPressAuthentication A visit to your site]
+[wpgetcurrentuser.wiki 2. UWPML Cookies and Transients]
 
-[http://code.google.com/p/prevent-multiple-logins/wiki/checkout Checkout]
+[PreventMultipleLogins 3. Two Plugins]
+_____
 
-[http://code.google.com/p/prevent-multiple-logins/wiki/submitpatch Submit a Patch]
+[checkout Checkout]
+
+[submitpatch Submit a Patch]
 
 [source Plugin Source]
+
+_____
 
 http://prevent-multiple-logins.googlecode.com/svn/assets/logo.png
