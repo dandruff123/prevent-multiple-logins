@@ -2,10 +2,8 @@
 /**
  * Login Manager
  * 
- * Most of the plugin specific functionality is implemented in this class.
- * Checks each login to prevent multiple logins.
- * Users are added meta data on successful login. Login related meta data is
- * updated on each visit for logged in user.
+ * Core PML functionality is implemented inside 
+ * UWPML_Login_Manager class.
  * 
  * @package uwpml
  * @since 1.0.1
@@ -13,108 +11,137 @@
  */
 class UWPML_Login_Manager{
     
-    private $user_meta;
-    
-    private $error_heading;
-    
-    private $error_message;
-    
-    public function __construct() {  
-        
-        $this->error_heading = __('Already Logged In.' , 'uwpml');
-        
-        add_action( 'init', 
-                array($this, 'update_user_meta_login') );
+    public function __construct() {        
+        add_action( 'set_auth_cookie', 
+                array($this, 'set_auth_transient'), 10, 5 );
         add_action( 'clear_auth_cookie', 
-                array($this, 'update_user_meta_logout'));
+                array($this, 'clear_auth_transient'));
+        add_action('auth_cookie_valid', 
+                array($this, 'uwpml_auth_cookie_valid'), 10, 2);
         add_filter('authenticate', 
-                array($this, 'check_login'), 40, 3);
-        add_filter('login_errors',
-                array($this, 'multiple_login_error_message'));
-        add_filter('auth_cookie_expiration',
-                array($this, 'set_auth_cookie_expiration'));
+                array($this, 'uwpml_authenticate'), 40, 3);
     }
     
-    public function update_user_meta_login(){
-        if(is_user_logged_in()){            
-            $cookie = 'wp-settings-time-' . get_current_user_id();    
-
-        }
-    }
-    
-    // questions/39761/how-to-get-userid-at-wp-logout-action-hook
-    public function update_user_meta_logout(){
-        if(is_user_logged_in()){
-            
-        $this->user_meta = array(
-            'logged_in' => false,
-            'last_seen' => time()
-        );        
-        update_user_meta(get_current_user_id(), 'uwpml_user_meta', $this->user_meta);        
-        }
-    }   
-    
-    public function check_login($user, $username, $password){
+    /**
+     * Set Auth Transient
+     * 
+     * Setup 'Auth Transient' with 'Auth Cookie'
+     * 
+     * Auth cookie is generated upon user login. Create a transient for this 
+     * user using 'set_auth_cookie' action hook.
+     * 
+     * @hook set_auth_cookie
+     * 
+     * @param type $logged_in_cookie
+     * @param type $expire
+     * @param type $expiration
+     * @param type $user_id
+     * @param type $scheme
+     * 
+     * @return void action hook returns nothing
+     */
+    public function set_auth_transient( $logged_in_cookie, $expire, 
+            $expiration, $user_id, $scheme)
+    {
+        $transient = 'uwpml_' . $user_id;
+        $value = array(
+            'logged_in_coockie' => $logged_in_cookie,
+            'auth_time' => time(),
+            'time' => time(),
+            'expiration' => $expiration
+        );
         
+        $expiration = $expiration - time();
+        
+        set_transient($transient, $value, $expiration);        
+    }
+    
+    /**
+     * Clear Auth Transient
+     * 
+     * Clears the 'Auth Transient' with 'Auth Transient'
+     * 
+     * @hook clear_auth_cookie
+     * 
+     * @return void action hook returns nothing
+     */
+    public function clear_auth_transient(){
+        $transient = 'uwpml_' . get_current_user_id();
+        delete_transient($transient);
+    }
+    
+    /**
+     * UWPML Auth Cookie Valid
+     * 
+     * Fires with each visit to the site. Authorizes the user.
+     * 
+     * If the auth cookie is valid, update the transients data.
+     * 
+     * @hook auth_cookie_valid
+     * 
+     * @param type $cookie_elements
+     * @param type $user
+     * 
+     * @return void action hook returns nothing
+     */
+    public function uwpml_auth_cookie_valid($cookie_elements, $user){        
+        $transient = 'uwpml_' . $user->ID;
+        $user_data = get_transient($transient);
+        extract($cookie_elements, EXTR_OVERWRITE); 
+        
+        if($user_data){ // Update transient expiration
+            $expiration = $expiration - time() ;
+        }
+        
+        $value = array(
+            'logged_in_coockie' => $hmac,
+            'auth_time' => $user_data['auth_time'],
+            'time' => time(),
+            'expiration' => $expiration
+        );
+        set_transient($transient, $value, $expiration);            
+    }
+    
+    /**
+     * UWPML Authenticate
+     * 
+     * Throws an error if multiple login attempt
+     * 
+     * If $user is a WP_User, then authentication is a success.
+     * 
+     * @hook authenticate
+     * 
+     * @param type $user
+     * @param type $username
+     * @param type $password
+     * 
+     * @return $user|WP_Error $user if not a multiple login attempt.
+     */
+    public function uwpml_authenticate($user, $username, $password){
         if ( is_a($user, 'WP_User')) {
-            $uwpml_user_meta = get_transient( $user->ID );
-            
-            if($uwpml_user_meta){      
-                $uwpml_options = get_option('uwpml_options');
-                $last_seen = $uwpml_user_meta['last_seen'];
-                $expiration = $uwpml_options['auth']['time'];
-                $elapsed = time() - $last_seen;
-                $this->error_message = '<br />Auth Cookie Expiration: ' .
-                        $expiration / 60 . 'min<br /><br />';
-                $this->error_message .= 'Last Visit: ' .
-                        date("Y-m-d H:i:s", $last_seen )
-                        . '<br /><br />';
-                $try_again = ( $expiration - $elapsed ) ;
+            $transient = 'uwpml_' . $user->ID; 
+            $user_data = get_transient($transient);
+            if($user_data){
                 
-                if($try_again > 0){
-                $this->error_message .= 'Try again in: ' .
-                        date("H:i:s", $try_again )
-                        . '<br />';                
+                $error = __('Alreay Logged In', 'uwpml');                                
+                
+                $error = apply_filters(
+                        'uwpml_already_logged_in_message', 
+                        $error, $user, $user_data
+                );
+                
+                do_action('uwpml_multiple_login_attempt', $user, $error);
+                
                 return new WP_Error(
-                        'multiple-login-attempt', 
-                        $this->error_heading 
-                        );  
-                } else {
-                    return $user;
-                }
-            } else {
-                $uwpml_options = get_option('uwpml_options');
-                $expiration = $uwpml_options['auth']['time_remember'];       
-                $this->user_meta = array(
-                    'logged_in' => true,
-                    'wp-settings-time-uid' => $_COOKIE[$cookie],
-                    'last_seen' => time()
-                );       
-                set_transient(get_current_user_id(), $this->user_meta, $expiration);                
-                return $user;
+                        'authentication_failed', 
+                        $error
+                );
             }
+        }
         
-        }        
         return $user;
     }
-
-    public function multiple_login_error_message($errors){
-        
-        if(strpos($errors, $this->error_heading)){
-        
-        
-        $errors .= $this->error_message;
-        return $errors;
-        
-        }
-        
-        return $errors;
-    }
-    
-    public function set_auth_cookie_expiration(){
-        $uwpml_options = get_option('uwpml_options');
-        return $uwpml_options['auth']['time'];
-    }
+   
     
 }
 ?>
