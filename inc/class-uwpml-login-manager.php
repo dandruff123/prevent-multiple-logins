@@ -43,23 +43,20 @@ class UWPML_Login_Manager{
     public function set_auth_transient( $logged_in_cookie, $expire, 
             $expiration, $user_id, $scheme)
     {
+        $auth_for = $expiration - time();
         $transient = 'uwpml_' . $user_id;
         $value = array(
-            'logged_in_coockie' => $logged_in_cookie,
-            'auth_time' => time(),
-            'time' => time(),
-            'expiration' => $expiration
-        );
-        
-        $expiration = $expiration - time();
-        
-        set_transient($transient, $value, $expiration);        
+            'auth_on' => time(),
+            'auth_for' => $auth_for,
+            'updated_on' => time()
+        );                        
+        set_transient($transient, $value, $auth_for);        
     }
     
     /**
-     * Clear Auth Transient
+     * Clears Auth Transient
      * 
-     * Clears the 'Auth Transient' with 'Auth Transient'
+     * Clears the 'Auth Transient' just before clearing 'Auth Cookies'
      * 
      * @hook clear_auth_cookie
      * 
@@ -73,41 +70,42 @@ class UWPML_Login_Manager{
     /**
      * UWPML Auth Cookie Valid
      * 
-     * Fires with each visit to the site. Authorizes the user.
+     * Fires with each visit to the site, if the auth coockie is valid
      * 
-     * If the auth cookie is valid, update the transients data.
+     * If the auth cookie is valid, update the transient
      * 
-     * @hook auth_cookie_valid
+     * @hook `auth_cookie_valid`
      * 
      * @param type $cookie_elements
      * @param type $user
      * 
      * @return void action hook returns nothing
      */
-    public function uwpml_auth_cookie_valid($cookie_elements, $user){        
+    public function uwpml_auth_cookie_valid($cookie_elements, $user){
+        
         $transient = 'uwpml_' . $user->ID;
-        $user_data = get_transient($transient);
-        extract($cookie_elements, EXTR_OVERWRITE); 
+        $transient_value = get_transient($transient);        
         
-        if($user_data){ // Update transient expiration
-            $expiration = $expiration - time() ;
+        if($transient_value){ // Update Transient                    
+            $value = array(
+                'auth_on' => $transient_value['auth_on'],
+                'auth_for' => $transient_value['auth_for'],
+                'updated_on' => time()
+            );
+            $expiration = $transient_value['auth_on']
+                          + $transient_value['auth_for'] 
+                          - time() ;
+            set_transient($transient, $value, $expiration);            
         }
-        
-        $value = array(
-            'logged_in_coockie' => $hmac,
-            'auth_time' => $user_data['auth_time'],
-            'time' => time(),
-            'expiration' => $expiration
-        );
-        set_transient($transient, $value, $expiration);            
     }
     
     /**
      * UWPML Authenticate
      * 
-     * Throws an error if multiple login attempt
+     * Throws an error on a multiple login attempt
      * 
-     * If $user is a WP_User, then authentication is a success.
+     * finally checks `Auth Transient`. i.e. after username,
+     * password, auth cookie(priority 40)
      * 
      * @hook authenticate
      * 
@@ -119,19 +117,22 @@ class UWPML_Login_Manager{
      */
     public function uwpml_authenticate($user, $username, $password){
         if ( is_a($user, 'WP_User')) {
+            
             $transient = 'uwpml_' . $user->ID; 
-            $user_data = get_transient($transient);
-            if($user_data){
-                
-                $error = __('Alreay Logged In', 'uwpml');                                
-                
+            $transient_values = get_transient($transient);
+            
+            if($transient_values){                
+                $error = __('Already Logged In', 'uwpml');                     
                 $error = apply_filters(
                         'uwpml_already_logged_in_message', 
-                        $error, $user, $user_data
-                );
-                
-                do_action('uwpml_multiple_login_attempt', $user, $error);
-                
+                        $error, $user, $transient_values
+                );                
+                do_action(
+                        'uwpml_multiple_login_attempt', 
+                        $user, 
+                        $error,
+                        $transient_values
+                );                
                 return new WP_Error(
                         'authentication_failed', 
                         $error
@@ -144,4 +145,6 @@ class UWPML_Login_Manager{
    
     
 }
+// Transient Check
+// var_dump(get_transient('uwpml_' . get_current_user_id()));
 ?>

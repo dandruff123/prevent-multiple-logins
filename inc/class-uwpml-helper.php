@@ -29,19 +29,19 @@ class UWPML_Helper{
      * @param type $user
      * @return string
      */
-    public function authenticate_msg($error, $user, $user_data){
+    public function authenticate_msg($error, $user, $transient_value){     
         $error  .= '<br /><br />'
         
                 . __('Authenticated on : ', 'uwpml')
-                . date("Y-m-d H:i:s", $user_data['auth_time'] )
+                . date("Y-m-d H:i:s", $transient_value['auth_on'] )
+                . '<br /><br />'
+                
+                . __('Authenticated for : ', 'uwpml')
+                . date("d H:i:s", $transient_value['auth_for'] )
                 . '<br /><br />'
                 
                 . __('Last Visit : ', 'uwpml')
-                . date("Y-m-d H:i:s", $user_data['time'] )
-                . '<br /><br />'
-                
-                . __('Try again in : ', 'uwpml')
-                . date("H:i:s", $user_data['expiration'] );
+                . date("Y-m-d H:i:s", $transient_value['updated_on'] );
         
         return $error;
     }
