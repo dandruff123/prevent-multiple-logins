@@ -1,35 +1,36 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: uwpml\n"
-"POT-Creation-Date: 2013-01-19 21:44+0530\n"
-"PO-Revision-Date: 2013-01-19 22:05+0530\n"
-"Last-Translator: Upeksha <upekshawisidagama@gmail.com>\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2013-01-21 04:26-0000\n"
+"PO-Revision-Date: 2013-01-21 04:37-0000\n"
+"Last-Translator: Upeksha Wisidagama <upeksha@php-sri-lanka.com>\n"
 "Language-Team: \n"
+"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 1.5.4\n"
-"X-Poedit-KeywordsList: _;gettext;gettext_noop;__\n"
-"X-Poedit-Basepath: C:\\xampp\\htdocs\\uwpml\\wp-content\\plugins\\prevent-"
-"multiple-logins\n"
-"X-Poedit-SearchPath-0: inc\n"
+"X-Poedit-KeywordsList: __;gettext;gettext_noop;_;_e\n"
+"X-Poedit-Basepath: /var/www/uwpml/wp-content/plugins\n"
+"X-Poedit-SearchPath-0: prevent-multiple-logins\n"
 
-#: inc/class-uwpml-helper.php:35
+#: prevent-multiple-logins/inc/class-uwpml-helper.php:35
 msgid "Authenticated on : "
-msgstr "ඇතුළු උනේ : "
+msgstr "අනුමැතිය ලැබුනෙ : "
 
-#: inc/class-uwpml-helper.php:39
+#: prevent-multiple-logins/inc/class-uwpml-helper.php:39
+msgid "Authenticated for : "
+msgstr "වලංගු කාලය : "
+
+#: prevent-multiple-logins/inc/class-uwpml-helper.php:43
 msgid "Last Visit : "
-msgstr "අවසානයට පැමිණියේ : "
+msgstr "අවසාන පැමිණීම : "
 
-#: inc/class-uwpml-helper.php:43
-msgid "Try again in : "
-msgstr "නැවත උත්සහ කරන්න : "
-
-#: inc/class-uwpml-helper.php:57
+#: prevent-multiple-logins/inc/class-uwpml-helper.php:57
 msgid "Multiple Login Attempt"
-msgstr "බහු ලොගින උත්සහයක් "
+msgstr "බහු ප්‍රවිෂ්ට ප්‍රයත්නයක් : "
 
-#: inc/class-uwpml-login-manager.php:126
-msgid "Alreay Logged In"
-msgstr "දැනටත් ඇතුලෙ"
+#: prevent-multiple-logins/inc/class-uwpml-login-manager.php:125
+msgid "Already Logged In"
+msgstr "දැනටමත් ඇතුළුවී ඇත : "
+
