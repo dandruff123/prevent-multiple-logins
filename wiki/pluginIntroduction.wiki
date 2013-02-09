@@ -1,5 +1,7 @@
 #sidebar sidebarhome
 
+Notice: [http://bapml.com bapml] site contains an introductory article about this project.
+
 = Prevent Multiple Logins =
 
 http://prevent-multiple-logins.googlecode.com/svn/assets/banner.png
