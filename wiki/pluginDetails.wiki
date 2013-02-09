@@ -3,6 +3,8 @@
 
 = Prevent Multiple Logins =
 
+Notice: Visit [http://bapml.com bapml.com] for an introduction to this project.
+
 Prevents login to a user account multiple times.
 
 This project is a plugin for WordPress.
