@@ -1,0 +1,1 @@
+![http://prevent-multiple-logins.googlecode.com/svn/assets/wiki/wpauth-4.png](http://prevent-multiple-logins.googlecode.com/svn/assets/wiki/wpauth-4.png)
